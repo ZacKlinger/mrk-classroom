@@ -77,6 +77,8 @@ window.addEventListener('beforeprint',()=>{printState=[...document.querySelector
 window.addEventListener('afterprint',()=>printState.forEach(([el,open])=>el.open=open));
 $('print-syllabus').addEventListener('click',()=>window.print());
 
+$('zoom-in').addEventListener('click',()=>model?.zoomIn());
+$('zoom-out').addEventListener('click',()=>model?.zoomOut());
 $('restart-growth').addEventListener('click',()=>model?.restartGrowth());
 
 // Keep the syllabus and materials available even when WebGL is unavailable.

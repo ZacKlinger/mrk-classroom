@@ -33,6 +33,10 @@ export function createModel(container, onSelect, onGrowth = () => {}) {
   const controls = new OrbitControls(camera,renderer.domElement);
   controls.enableDamping = true;
   controls.enablePan = false;
+  // Leave wheel/trackpad and vertical touch gestures to the page.
+  controls.enableZoom = false;
+  controls.touches.TWO = null;
+  renderer.domElement.style.touchAction = 'pan-y pinch-zoom';
   controls.minDistance = 3;
   controls.maxDistance = 14;
   controls.minPolarAngle = 0.05;
@@ -230,6 +234,11 @@ export function createModel(container, onSelect, onGrowth = () => {}) {
     else if(event.key==='+'||event.key==='=')spherical.radius=Math.max(3,spherical.radius*.9);else if(event.key==='-')spherical.radius=Math.min(14,spherical.radius*1.1);else return;
     event.preventDefault();camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(spherical));controls.update();
   });
+  function zoomModel(factor){
+    const offset=camera.position.clone().sub(controls.target);
+    offset.setLength(THREE.MathUtils.clamp(offset.length()*factor,controls.minDistance,controls.maxDistance));
+    camera.position.copy(controls.target).add(offset);controls.update();refresh();
+  }
   function updateGrowth(seconds=0){
     growth=advanceGrowth(growth,seconds,{water:flow,lights:lightsOn,reducedMotion:reduced.matches});
     lettuce.update(growth);
@@ -256,6 +265,8 @@ export function createModel(container, onSelect, onGrowth = () => {}) {
     selectPart(id){selected=id;styleModel();refresh();},
     setFlow(enabled){flow=enabled;flowGroup.visible=flow;styleModel();refresh();},
     setRoute(value){route=value;styleModel();refresh();},
+    zoomIn(){zoomModel(.85);},
+    zoomOut(){zoomModel(1/.85);},
     restartGrowth(){growth=0;lastTime=null;updateGrowth();refresh();},
     dispose
   };

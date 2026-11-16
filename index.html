@@ -28,10 +28,10 @@
 
           <div id="model" aria-label="Interactive 3D hydroponics model. Drag to rotate. Use the controls and component buttons to explore without dragging."><p class="model-loading">Loading the model…</p></div>
 
-          <div class="model-toolbar"><button type="button" id="lights-toggle" aria-pressed="false"><span class="light-dot" aria-hidden="true"></span> Lights off</button><button type="button" id="flow-toggle" aria-pressed="false"><span aria-hidden="true">↝</span> Water off</button></div>
+          <div class="model-toolbar"><div class="zoom-controls" role="group" aria-label="Model zoom"><button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="zoom-in" aria-label="Zoom in">+</button></div><button type="button" id="lights-toggle" aria-pressed="false"><span class="light-dot" aria-hidden="true"></span> Lights off</button><button type="button" id="flow-toggle" aria-pressed="false"><span aria-hidden="true">↝</span> Water off</button></div>
         </div>
         <div class="growth-caption"><p id="growth-status" aria-live="polite">Turn on water and lights to grow butterhead lettuce.</p><button id="restart-growth" class="text-button" type="button" hidden>Grow again ↻</button><span>Sped-up illustration</span></div>
-        <div class="model-footnote"><span>Drag to rotate · Scroll or pinch to zoom · Select a part</span><span>Approximate model</span></div>
+        <div class="model-footnote"><span>Drag sideways to rotate · Scroll to explore · + / − to zoom</span><span>Approximate model</span></div>
         <div class="explorer">
           <div class="component-nav"><p class="eyebrow">Explore the system</p><div id="component-list" aria-label="System components"></div></div>
           <div class="component-detail" id="component-detail" aria-live="polite"></div>
