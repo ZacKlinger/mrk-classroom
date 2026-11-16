@@ -36,7 +36,7 @@ $('flow-diagram').innerHTML = `<div class="diagram-header">Reservoir → Pump �
 
 function updateFlow() {
   $('flow-toggle').setAttribute('aria-pressed', String(flow));
-  $('flow-toggle').innerHTML = `<span aria-hidden="true">↝</span> ${flow ? 'Hide water flow' : 'Show water flow'}`;
+  $('flow-toggle').innerHTML = `<span aria-hidden="true">↝</span> Water ${flow ? 'on' : 'off'}`;
   model?.setFlow(flow);
 }
 $('flow-toggle').addEventListener('click', () => { flow = !flow; updateFlow(); });
@@ -77,14 +77,20 @@ window.addEventListener('beforeprint',()=>{printState=[...document.querySelector
 window.addEventListener('afterprint',()=>printState.forEach(([el,open])=>el.open=open));
 $('print-syllabus').addEventListener('click',()=>window.print());
 
+$('restart-growth').addEventListener('click',()=>model?.restartGrowth());
+
 // Keep the syllabus and materials available even when WebGL is unavailable.
 import('./model.js').then(({createModel})=>{
-  model = createModel($('model'), selectPart);
+  model = createModel($('model'), selectPart, (phase) => {
+    $('growth-status').textContent = ({ready:'Turn on water and lights to grow butterhead lettuce.',growing:'Butterhead lettuce is growing…',paused:'Growth paused. Turn water and lights back on to continue.',grown:'Butterhead lettuce, fully grown.'})[phase];
+    $('restart-growth').hidden = phase === 'ready';
+  });
   model.selectPart(selectedPart); model.setLights(lightsOn); model.setFlow(flow); model.setRoute(selectedRoute);
 }).catch((error)=>{
   console.error('3D view unavailable:',error);
   $('model').innerHTML = `<div class="model-fallback"><h3>The water path</h3><p>The 3D view isn’t available in this browser. Explore the same system using the component buttons below.</p>${$('flow-diagram').innerHTML}</div>`;
   document.querySelector('.model-toolbar').hidden = true;
+  document.querySelector('.growth-caption').hidden = true;
 });
 
 function renderResources(type = 'all') {

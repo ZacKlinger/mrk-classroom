@@ -3,24 +3,28 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { createLettuceBed } from './lettuce.js';
+import { advanceGrowth } from './growth.js';
 import { routePoints, routeDepths, routeColors } from './topology.js';
 
-export function createModel(container, onSelect) {
+export function createModel(container, onSelect, onGrowth = () => {}) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#ffffff');
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 80);
   const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
+  renderer.shadowMap.autoUpdate = false;
+  renderer.shadowMap.needsUpdate = true;
   renderer.shadowMap.type = THREE.VSMShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = .88;
   const pmrem = new THREE.PMREMGenerator(renderer);
   const studio = new RoomEnvironment();
   const environment = pmrem.fromScene(studio, .04);
   scene.environment = environment.texture;
-  scene.environmentIntensity = .65;
+  scene.environmentIntensity = .38;
   studio.dispose();
   pmrem.dispose();
   container.replaceChildren(renderer.domElement);
@@ -35,19 +39,20 @@ export function createModel(container, onSelect) {
   controls.maxPolarAngle = Math.PI * .49;
   controls.target.set(-.25,1.35,0);
 
-  scene.add(new THREE.HemisphereLight('#ffffff','#b1aaa1',1.1));
-  const sun = new THREE.DirectionalLight('#fff9f2',3);
+  scene.add(new THREE.HemisphereLight('#ffffff','#b1aaa1',.65));
+  const sun = new THREE.DirectionalLight('#fff9f2',2.1);
   sun.position.set(-2,9,2);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
   sun.shadow.radius=7;sun.shadow.blurSamples=16;
   sun.shadow.camera.left=-5;sun.shadow.camera.right=5;sun.shadow.camera.top=5;sun.shadow.camera.bottom=-5;
   sun.shadow.normalBias=.025;scene.add(sun);
-  const fill = new THREE.DirectionalLight('#e8f0ff',1.2);fill.position.set(4,4,-4);scene.add(fill);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.ShadowMaterial({opacity:.095}));
+  const fill = new THREE.DirectionalLight('#e8f0ff',.65);fill.position.set(4,4,-4);scene.add(fill);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.ShadowMaterial({opacity:.15}));
   floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;floor.position.y=.005;scene.add(floor);
   const root=new THREE.Group();scene.add(root);
   const groups={}; const pickable=[]; const materialsByPart={}; const channelMaterials=[];
   let selected='overview',flow=false,lightsOn=false,route='all',visible=true,disposed=false;
-  const growLights=[];
+  const growLights=[], lightHalos=[], plantingSites=[];
+  let growth=0, lastTime=null, lastGrowthLabel='', shadowGrowth=-1;
   RectAreaLightUniformsLib.init();
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -69,7 +74,7 @@ export function createModel(container, onSelect) {
   const dark=new THREE.MeshStandardMaterial({color:'#252b2b',roughness:.74});
   const metal=new THREE.MeshStandardMaterial({color:'#b7bfc3',metalness:.85,roughness:.24});
   const tubeMaterial=new THREE.MeshPhysicalMaterial({color:'#aabbb7',roughness:.25,clearcoat:.45});
-  const pink=new THREE.MeshStandardMaterial({color:'#fbe2e7',emissive:'#ee8eb6',emissiveIntensity:0,roughness:.3});
+  const pink=new THREE.MeshStandardMaterial({color:'#efadc8',emissive:'#ff6cab',emissiveIntensity:0,roughness:.3});
   function mesh(geometry,material,id){const own=material.clone();const m=new THREE.Mesh(geometry,own);m.castShadow=true;m.receiveShadow=true;m.userData.part=id;group(id).add(m);pickable.push(m);(materialsByPart[id]??=[]).push(own);return m;}
   function rounded(size){return new RoundedBoxGeometry(...size,3,Math.min(.007,Math.min(...size)/5));}
   function box(size,position,mat,id){const horizontal=mat===wood&&size[0]>size[1];const m=mesh(rounded(horizontal?[size[1],size[0],size[2]]:size),mat,id);m.position.set(...position);if(horizontal)m.rotation.z=-Math.PI/2;return m;}
@@ -115,6 +120,12 @@ export function createModel(container, onSelect) {
     }
     const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setIndex(indices);geometry.computeVertexNormals();return geometry;
   }
+  const haloCanvas=document.createElement('canvas');haloCanvas.width=64;haloCanvas.height=64;
+  const haloContext=haloCanvas.getContext('2d');
+  const gradient=haloContext.createRadialGradient(32,32,0,32,32,32);
+  gradient.addColorStop(0,'rgba(255,90,161,.65)');gradient.addColorStop(.3,'rgba(255,112,177,.3)');gradient.addColorStop(1,'rgba(255,112,177,0)');
+  haloContext.fillStyle=gradient;haloContext.fillRect(0,0,64,64);
+  const haloTexture=new THREE.CanvasTexture(haloCanvas);
   routeDepths.forEach((z,index)=>{
     for(const lower of [false,true]){
       const yLeft=lower?.56:1.96,yRight=lower?.65:1.87,r=lower?.11:.087,id=lower?'lower':'upper';
@@ -123,6 +134,7 @@ export function createModel(container, onSelect) {
       for(let j=0;j<6;j++){
         const x=-.97+j*.388,y=yLeft+(yRight-yLeft)*((x+1.2)/2.4)+r*.94;
         const cup=mesh(new THREE.CylinderGeometry(.039,.027,.07,24,1,true),dark,id);cup.position.set(x,y-.034,z);cup.userData.route=index;cup.material.side=THREE.DoubleSide;
+        plantingSites.push({x,y:y+.008,z});
         const collar=mesh(new THREE.TorusGeometry(.044,.004,12,40),dark,id);collar.rotation.x=Math.PI/2;collar.position.set(x,y+.005,z);collar.userData.route=index;
       }
     }
@@ -131,13 +143,16 @@ export function createModel(container, onSelect) {
       box([2.22,.035,.07],[0,y,z],white,'lights');
       const diffuser=box([2.15,.009,.055],[0,y-.021,z],pink,'lights');
       diffuser.material.userData.growEmitter=true;
-      const light=new THREE.RectAreaLight('#ff9fc5',0,2.15,.18);
+      const light=new THREE.RectAreaLight('#ff6ca9',0,2.15,.22);
       light.position.set(0,y-.029,z);light.lookAt(0,y-1,z);scene.add(light);growLights.push(light);
+      const halo=new THREE.Mesh(new THREE.PlaneGeometry(2.4,.7),new THREE.MeshBasicMaterial({map:haloTexture,transparent:true,opacity:.55,depthWrite:false,side:THREE.DoubleSide,toneMapped:false}));
+      halo.rotation.x=-Math.PI/2;halo.position.set(0,y-.035,z);halo.visible=false;root.add(halo);lightHalos.push(halo);
     }
     tube([[1.25,1.87,z],[1.47,1.87,z],[1.47,.65,z],[1.25,.65,z]],'drops',.024);
     tube([[-1.44,2.11,z],[-1.44,1.96,z],[-1.25,1.96,z]],'supply');
     tube([[-1.25,.56,z],[-1.48,.56,z],[-1.65,.43,z]],'return',.027);
   });
+  const lettuce=createLettuceBed(plantingSites);root.add(lettuce.group);
   // Three-tee binary supply and three-tee collector: 1→2→4, then 4→2→1.
   tube([[-2.04,.35,0],[-1.9,.35,0],[-1.9,2.22,0],[-1.72,2.22,0]],'pump',.03);
   tube([[-1.72,2.22,-.38],[-1.72,2.22,.38]],'supply');
@@ -167,8 +182,8 @@ export function createModel(container, onSelect) {
   const flows=[];
   function flowLine(points,color,index){
     const curve=new THREE.CurvePath();for(let i=1;i<points.length;i++)curve.add(new THREE.LineCurve3(new THREE.Vector3(...points[i-1]),new THREE.Vector3(...points[i])));
-    const line=new THREE.Mesh(new THREE.TubeGeometry(curve,80,.012,6,false),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.65,depthTest:false}));line.renderOrder=5;flowGroup.add(line);
-    const dots=[];for(let i=0;i<15;i++){const dot=new THREE.Mesh(new THREE.SphereGeometry(.027,8,6),new THREE.MeshBasicMaterial({color,depthTest:false}));dot.renderOrder=6;flowGroup.add(dot);dots.push(dot);}
+    const line=new THREE.Mesh(new THREE.TubeGeometry(curve,80,.012,6,false),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.65,depthTest:true}));line.renderOrder=5;flowGroup.add(line);
+    const dots=[];for(let i=0;i<15;i++){const dot=new THREE.Mesh(new THREE.SphereGeometry(.02,8,6),new THREE.MeshBasicMaterial({color,depthTest:true}));dot.renderOrder=6;flowGroup.add(dot);dots.push(dot);}
     flows.push({curve,line,dots,index});
   }
   routeDepths.forEach((z,index)=>{
@@ -179,24 +194,28 @@ export function createModel(container, onSelect) {
   flowLine([[-1.83,.38,0],[-2.12,.38,0]],'#254b3b',-1);
 
   function styleModel(){
+    renderer.shadowMap.needsUpdate=true;
     Object.entries(materialsByPart).forEach(([id,mats])=>mats.forEach((mat)=>{
       mat.emissive?.set(id===selected?'#986328':'#000000');mat.emissiveIntensity=id===selected?.16:0;
-      if(mat.userData.growEmitter){mat.emissive.set('#ee8eb6');mat.emissiveIntensity=lightsOn?1:0;}
+      if(mat.userData.growEmitter){mat.emissive.set('#ff6cab');mat.emissiveIntensity=lightsOn?1.5:0;}
     }));
-    channelMaterials.forEach(mat=>{mat.transparent=flow;mat.opacity=flow?.22:1;mat.depthWrite=!flow;});
+    channelMaterials.forEach(mat=>{mat.transparent=flow;mat.opacity=flow?.68:1;mat.depthWrite=!flow;});
     flows.forEach((f)=>{const show=route==='all'||f.index===Number(route)||f.index===-1;f.line.visible=show;f.dots.forEach(d=>d.visible=show);});
   }
   function frameModel(){
     const ratio=container.clientWidth/container.clientHeight;
-    const scale=ratio<.9?1.3:1;
-    controls.target.set(-.48,1.36,0);
-    const pos=[4.5,3.2,6.3];
-    camera.position.set(controls.target.x+(pos[0]-controls.target.x)*scale,controls.target.y+(pos[1]-controls.target.y)*scale,pos[2]*scale);controls.update();
+    controls.target.set(-.2,1.13,-.2);
+    // Fit the full rack and reservoir tightly, with room for the bottom toolbar.
+    const distance=Math.max(7.15,6.9/ratio);
+    const direction=new THREE.Vector3(4.98,1.84,6.3).normalize();
+    camera.position.copy(controls.target).addScaledVector(direction,distance);controls.update();
   }
   let lastWidth=0;
   function resize(){const w=container.clientWidth,h=container.clientHeight;if(!w||!h)return;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);if(!lastWidth||Math.abs(w-lastWidth)>150)frameModel();lastWidth=w;}
   const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(container);resize();
-  const intersectionObserver=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;});intersectionObserver.observe(container);
+  const resetClock=()=>{lastTime=null;};
+  document.addEventListener('visibilitychange',resetClock);
+  const intersectionObserver=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;resetClock();});intersectionObserver.observe(container);
   const raycaster=new THREE.Raycaster();const pointer=new THREE.Vector2();let pointerDown;
   renderer.domElement.addEventListener('pointerdown',e=>{pointerDown={x:e.clientX,y:e.clientY};});
   renderer.domElement.addEventListener('pointerup',e=>{
@@ -211,9 +230,33 @@ export function createModel(container, onSelect) {
     else if(event.key==='+'||event.key==='=')spherical.radius=Math.max(3,spherical.radius*.9);else if(event.key==='-')spherical.radius=Math.min(14,spherical.radius*1.1);else return;
     event.preventDefault();camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(spherical));controls.update();
   });
-  let frame;function animate(time){if(disposed)return;frame=requestAnimationFrame(animate);if(!visible||document.hidden)return;controls.update();if(flow){flows.forEach(f=>f.dots.forEach((dot,i)=>dot.position.copy(f.curve.getPointAt(((reduced.matches?0:time*.000055)+i/f.dots.length)%1))));}renderer.render(scene,camera);}
+  function updateGrowth(seconds=0){
+    growth=advanceGrowth(growth,seconds,{water:flow,lights:lightsOn,reducedMotion:reduced.matches});
+    lettuce.update(growth);
+    const shadowStep=Math.floor(growth*24);
+    if(shadowStep!==shadowGrowth){shadowGrowth=shadowStep;renderer.shadowMap.needsUpdate=true;}
+    const phase=growth>=1?'grown':flow&&lightsOn?'growing':growth>0?'paused':'ready';
+    if(phase!==lastGrowthLabel){lastGrowthLabel=phase;onGrowth(phase);}
+  }
+  function refresh(){updateGrowth();renderer.render(scene,camera);}
+  let frame;function animate(time){
+    if(disposed)return;frame=requestAnimationFrame(animate);
+    if(!visible||document.hidden){lastTime=null;return;}
+    if(lastTime!==null&&time-lastTime<1000/30)return;
+    const seconds=lastTime===null?0:Math.min((time-lastTime)/1000,1);lastTime=time;
+    controls.update();updateGrowth(seconds);
+    if(flow)flows.forEach(f=>f.dots.forEach((dot,i)=>dot.position.copy(f.curve.getPointAt(((reduced.matches?0:time*.000055)+i/f.dots.length)%1))));
+    renderer.render(scene,camera);
+  }
   styleModel();frame=requestAnimationFrame(animate);
-  const dispose=()=>{disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();intersectionObserver.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of [o.material].flat())m.dispose();});woodTexture.dispose();environment.dispose();renderer.dispose();};
+  const dispose=()=>{disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();intersectionObserver.disconnect();document.removeEventListener('visibilitychange',resetClock);controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of [o.material].flat())m.dispose();});woodTexture.dispose();haloTexture.dispose();environment.dispose();renderer.dispose();};
   if(import.meta.hot)import.meta.hot.dispose(dispose);
-  return {setLights(enabled){lightsOn=enabled;growLights.forEach(light=>light.intensity=enabled?22:0);styleModel();renderer.render(scene,camera);},selectPart(id){selected=id;styleModel();},setFlow(enabled){flow=enabled;flowGroup.visible=flow;styleModel();},setRoute(value){route=value;styleModel();},dispose};
+  return {
+    setLights(enabled){lightsOn=enabled;growLights.forEach(light=>light.intensity=enabled?36:0);lightHalos.forEach(halo=>halo.visible=enabled);styleModel();refresh();},
+    selectPart(id){selected=id;styleModel();refresh();},
+    setFlow(enabled){flow=enabled;flowGroup.visible=flow;styleModel();refresh();},
+    setRoute(value){route=value;styleModel();refresh();},
+    restartGrowth(){growth=0;lastTime=null;updateGrowth();refresh();},
+    dispose
+  };
 }

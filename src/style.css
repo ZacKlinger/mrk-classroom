@@ -103,3 +103,10 @@ footer{border-color:#ddd}
 .budget-details th>small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:5px}
 @media(max-width:600px){.project-links{gap:16px;font-size:11px;margin-top:22px}.model-toolbar button{font-size:11px}.library-section{padding-top:36px}.resource-list{grid-template-columns:1fr}.resource-controls{align-items:flex-start;gap:8px}.resource-filters{gap:5px}.resource-filters button{padding:8px 11px;font-size:11px}.resource-card{padding:24px 0}.resource-card h3{font-size:23px}.cost-overview{grid-template-columns:1fr;gap:16px}.cost-main>strong{font-size:66px}.cost-breakdown small{max-width:235px}.sequence-question{font-size:16px}.phase>summary{grid-template-columns:24px 1fr 90px}.phase>summary h3{font-size:17px}}
 @media print{.library-section{display:none!important}.phase-resources{display:none}.sequence-question{font-size:13pt}.phase-body .eyebrow{font-size:9pt}}
+
+/* Give the growing system more of the gallery wall. */
+@media(min-width:901px){.model-stage{height:740px}}
+.growth-caption{display:flex;align-items:center;gap:12px 22px;flex-wrap:wrap;padding:15px 0 3px;font-size:12px}
+.growth-caption p{margin:0;color:#365923}.growth-caption>span{margin-left:auto;font-size:10px;color:var(--muted)}
+.growth-caption .text-button{font-size:11px}
+@media(max-width:600px){.model-stage{height:530px}.growth-caption{gap:8px 16px}.growth-caption p{width:100%;font-size:12px}.growth-caption>span{margin-left:0}}

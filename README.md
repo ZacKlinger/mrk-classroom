@@ -27,6 +27,8 @@ The source files in this repository are the public editorial source of truth. Th
 - `content/budget.json`: historical cost lines, their source and accounting basis, and discrepancies.
 - `content/components.json`: explanations for the 3D component selections.
 - `src/topology.js`: the four independent upper-to-lower routes.
+- `src/growth.js`: the water/light growth gate and illustration duration.
+- `src/lettuce.js`: instanced butterhead rosettes shared across the planting sites.
 - `src/model.js`: approximate geometry and the common supply and return manifolds.
 - `index.html`: gallery sections and public metadata. Add future classes alongside Science, Math, and Extracurricular.
 
@@ -44,7 +46,7 @@ Public curriculum is paraphrased and excludes class demographics, accommodations
 
 The teacher-confirmed topology is one reservoir/pump → three supply tees forming four branches → four upper channels → four independent lower channels → three return tees → one reservoir return. The binary tree is a schematic arrangement, not a shop drawing. Exact tube sizes, plant-hole counts, fitting locations, grades, pump performance, oxygen provision, and reservoir capacity have not been verified. The animation depicts direction, not measured flow or water depth. It does not claim that flow divides equally.
 
-The geometry is deliberately approximate, including a visible pump in an open reservoir. No plants or harvest results are presented as completed. The model uses four white upper channels, four turquoise lower channels, a braced wooden frame, casters, and lights based on the reference photos. A white studio environment, rounded timber edges, procedural wood grain, open planting apertures, and physical PVC materials provide the rendering. It supports orbit, zoom, a soft pink grow-light switch, keyboard rotation/zoom, raycast component selection, and a reduced-motion flow overlay. If WebGL fails, the page retains an accessible route diagram, component guide, syllabus, and materials list.
+The geometry is deliberately approximate, including a visible pump in an open reservoir. The lettuce is an explicitly labeled, sped-up illustration, not a completed classroom crop or harvest result. Both water and lights must be on for growth; either switch pauses it. Growth resumes from the same stage, and “Grow again” resets it. Reduced-motion visitors see the mature heads without the growth animation. The model uses four white upper channels, four turquoise lower channels, a braced wooden frame, casters, and lights based on the reference photos. A white studio environment, rounded timber edges, procedural wood grain, open planting apertures, and physical PVC materials provide the rendering. It supports orbit, zoom, a pink grow-light switch, a paired water/light growth interaction, keyboard rotation/zoom, raycast component selection, and a reduced-motion flow overlay. If WebGL fails, the page retains an accessible route diagram, component guide, syllabus, and materials list.
 
 ## Source provenance
 

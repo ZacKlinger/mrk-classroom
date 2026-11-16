@@ -28,15 +28,16 @@
 
           <div id="model" aria-label="Interactive 3D hydroponics model. Drag to rotate. Use the controls and component buttons to explore without dragging."><p class="model-loading">Loading the model…</p></div>
 
-          <div class="model-toolbar"><button type="button" id="lights-toggle" aria-pressed="false"><span class="light-dot" aria-hidden="true"></span> Lights off</button><button type="button" id="flow-toggle" aria-pressed="false"><span aria-hidden="true">↝</span> Show water flow</button></div>
+          <div class="model-toolbar"><button type="button" id="lights-toggle" aria-pressed="false"><span class="light-dot" aria-hidden="true"></span> Lights off</button><button type="button" id="flow-toggle" aria-pressed="false"><span aria-hidden="true">↝</span> Water off</button></div>
         </div>
+        <div class="growth-caption"><p id="growth-status" aria-live="polite">Turn on water and lights to grow butterhead lettuce.</p><button id="restart-growth" class="text-button" type="button" hidden>Grow again ↻</button><span>Sped-up illustration</span></div>
         <div class="model-footnote"><span>Drag to rotate · Scroll or pinch to zoom · Select a part</span><span>Approximate model</span></div>
         <div class="explorer">
           <div class="component-nav"><p class="eyebrow">Explore the system</p><div id="component-list" aria-label="System components"></div></div>
           <div class="component-detail" id="component-detail" aria-live="polite"></div>
         </div>
         <div class="route-strip"><div><span class="eyebrow">Follow a route</span><p>One upper channel. One lower channel.</p></div><div class="route-buttons" aria-label="Water routes"><button type="button" data-route="all" aria-pressed="true" class="active">All</button><button type="button" data-route="0" aria-pressed="false">1</button><button type="button" data-route="1" aria-pressed="false">2</button><button type="button" data-route="2" aria-pressed="false">3</button><button type="button" data-route="3" aria-pressed="false">4</button></div><p id="route-status" aria-live="polite">Four separate pairs share one supply and one return.</p></div>
-        <details class="model-notes"><summary>Model notes</summary><p id="model-note"></p><div id="flow-diagram"></div><p>Flow direction is planned; tube sizes, drainage, and pump performance still need testing.</p></details>
+        <details class="model-notes"><summary>Model notes</summary><p id="model-note"></p><div id="flow-diagram"></div><p>Flow direction is planned; tube sizes, drainage, and pump performance still need testing. Lettuce growth is a sped-up illustration, not a record of the classroom crop. Real plants also need nutrients, oxygen, and suitable growing conditions.</p></details>
       </section>
       <section class="current-section" aria-labelledby="current-title"><div class="wrap current-grid"><div><h2 id="current-title">On the<br>workbench.</h2></div><div><p class="current-state" id="current-state"></p><p class="large-copy" id="current-copy"></p><div class="next-step"><span class="eyebrow">Up next</span><p id="next-copy"></p></div><p class="update-date" id="update-date"></p></div></div></section>
       <section class="wrap library-section" id="resources" aria-labelledby="resources-title">
