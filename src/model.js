@@ -1,18 +1,27 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { routePoints, routeDepths, routeColors } from './topology.js';
 
 export function createModel(container, onSelect) {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#dce6bd');
+  scene.background = new THREE.Color('#ffffff');
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 80);
   const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.VSMShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.35;
+  renderer.toneMappingExposure = 1.05;
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const studio = new RoomEnvironment();
+  const environment = pmrem.fromScene(studio, .04);
+  scene.environment = environment.texture;
+  scene.environmentIntensity = .65;
+  studio.dispose();
+  pmrem.dispose();
   container.replaceChildren(renderer.domElement);
   renderer.domElement.setAttribute('aria-label', '3D hydroponics system. Arrow keys rotate; plus and minus zoom. Components can also be selected using the list below.');
   renderer.domElement.tabIndex = 0;
@@ -25,13 +34,14 @@ export function createModel(container, onSelect) {
   controls.maxPolarAngle = Math.PI * .49;
   controls.target.set(-.25,1.35,0);
 
-  scene.add(new THREE.HemisphereLight('#fffdf4','#9ba77d',3));
-  const sun = new THREE.DirectionalLight('#fff8ed',4);
-  sun.position.set(-3,7,5);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+  scene.add(new THREE.HemisphereLight('#ffffff','#b1aaa1',1.1));
+  const sun = new THREE.DirectionalLight('#fff9f2',3);
+  sun.position.set(-2,9,2);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+  sun.shadow.radius=7;sun.shadow.blurSamples=16;
   sun.shadow.camera.left=-5;sun.shadow.camera.right=5;sun.shadow.camera.top=5;sun.shadow.camera.bottom=-5;
   sun.shadow.normalBias=.025;scene.add(sun);
-  const fill = new THREE.DirectionalLight('#d3e9f1',1.3);fill.position.set(4,3,-4);scene.add(fill);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.ShadowMaterial({opacity:.13}));
+  const fill = new THREE.DirectionalLight('#e8f0ff',1.2);fill.position.set(4,4,-4);scene.add(fill);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.ShadowMaterial({opacity:.095}));
   floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;floor.position.y=.005;scene.add(floor);
   const root=new THREE.Group();scene.add(root);
   const groups={}; const pickable=[]; const materialsByPart={}; const channelMaterials=[];
@@ -39,22 +49,29 @@ export function createModel(container, onSelect) {
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function group(id){if(!groups[id]){groups[id]=new THREE.Group();root.add(groups[id]);}return groups[id];}
-  const woodCanvas=document.createElement('canvas');woodCanvas.width=64;woodCanvas.height=512;
-  const ctx=woodCanvas.getContext('2d');ctx.fillStyle='#bd9a71';ctx.fillRect(0,0,64,512);
+  const woodCanvas=document.createElement('canvas');woodCanvas.width=256;woodCanvas.height=1024;
+  const ctx=woodCanvas.getContext('2d');ctx.fillStyle='#d9bd98';ctx.fillRect(0,0,256,1024);
   let seed=42; const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
-  for(let i=0;i<140;i++){const x=random()*64;ctx.strokeStyle=`rgba(85,53,26,${.03+random()*.11})`;ctx.lineWidth=.4+random();ctx.beginPath();ctx.moveTo(x,0);ctx.bezierCurveTo(x+random()*7,160,x-random()*7,340,x+random()*4,512);ctx.stroke();}
+  for(let i=0;i<650;i++){
+    const x=random()*256;ctx.strokeStyle=`rgba(100,67,38,${.025+random()*.14})`;ctx.lineWidth=.3+random()*1.2;ctx.beginPath();
+    for(let y=0;y<=1024;y+=8){const bend=Math.sin(y*.009+x*.03)*3+Math.sin(y*.003+x*.02)*8;const px=x+bend; y===0?ctx.moveTo(px,y):ctx.lineTo(px,y);}
+    ctx.stroke();
+  }
+  for(let i=0;i<3;i++){const x=40+random()*170,y=100+random()*820;for(let r=2;r<25;r+=2){ctx.strokeStyle=`rgba(94,61,35,${.12-r*.003})`;ctx.beginPath();ctx.ellipse(x,y,r*.5,r*3,0,0,Math.PI*2);ctx.stroke();}}
   const woodTexture=new THREE.CanvasTexture(woodCanvas);woodTexture.colorSpace=THREE.SRGBColorSpace;
-  const wood=new THREE.MeshStandardMaterial({color:'#ebca9e',map:woodTexture,roughness:.85});
-  const white=new THREE.MeshStandardMaterial({color:'#f5f3e7',roughness:.36});
-  const green=new THREE.MeshStandardMaterial({color:'#39a8a0',roughness:.38});
-  const dark=new THREE.MeshStandardMaterial({color:'#263830',roughness:.8});
-  const metal=new THREE.MeshStandardMaterial({color:'#9bada7',metalness:.7,roughness:.4});
-  const tubeMaterial=new THREE.MeshStandardMaterial({color:'#507b76',roughness:.5});
+  woodTexture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+  const wood=new THREE.MeshStandardMaterial({color:'#ffffff',map:woodTexture,bumpMap:woodTexture,bumpScale:.0015,roughness:.7});
+  const white=new THREE.MeshPhysicalMaterial({color:'#f5f5f1',roughness:.29,clearcoat:.28,clearcoatRoughness:.3});
+  const green=new THREE.MeshPhysicalMaterial({color:'#4eaaa5',roughness:.28,clearcoat:.35,clearcoatRoughness:.25});
+  const dark=new THREE.MeshStandardMaterial({color:'#252b2b',roughness:.74});
+  const metal=new THREE.MeshStandardMaterial({color:'#b7bfc3',metalness:.85,roughness:.24});
+  const tubeMaterial=new THREE.MeshPhysicalMaterial({color:'#aabbb7',roughness:.25,clearcoat:.45});
   const pink=new THREE.MeshStandardMaterial({color:'#fbe2e7',emissive:'#ed8dac',emissiveIntensity:.5,roughness:.3});
   function mesh(geometry,material,id){const own=material.clone();const m=new THREE.Mesh(geometry,own);m.castShadow=true;m.receiveShadow=true;m.userData.part=id;group(id).add(m);pickable.push(m);(materialsByPart[id]??=[]).push(own);return m;}
-  function box(size,position,mat,id){const m=mesh(new THREE.BoxGeometry(...size),mat,id);m.position.set(...position);return m;}
-  function cylinder(a,b,r,mat,id){const start=new THREE.Vector3(...a),end=new THREE.Vector3(...b);const m=mesh(new THREE.CylinderGeometry(r,r,start.distanceTo(end),20),mat,id);m.position.copy(start).add(end).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),end.sub(start).normalize());return m;}
-  function beam(a,b,width=.095,depth=.095){const start=new THREE.Vector3(...a),end=new THREE.Vector3(...b);const m=mesh(new THREE.BoxGeometry(width,start.distanceTo(end),depth),wood,'frame');m.position.copy(start).add(end).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),end.sub(start).normalize());return m;}
+  function rounded(size){return new RoundedBoxGeometry(...size,3,Math.min(.007,Math.min(...size)/5));}
+  function box(size,position,mat,id){const horizontal=mat===wood&&size[0]>size[1];const m=mesh(rounded(horizontal?[size[1],size[0],size[2]]:size),mat,id);m.position.set(...position);if(horizontal)m.rotation.z=-Math.PI/2;return m;}
+  function cylinder(a,b,r,mat,id){const start=new THREE.Vector3(...a),end=new THREE.Vector3(...b);const m=mesh(new THREE.CylinderGeometry(r,r,start.distanceTo(end),40),mat,id);m.position.copy(start).add(end).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),end.sub(start).normalize());return m;}
+  function beam(a,b,width=.095,depth=.095){const start=new THREE.Vector3(...a),end=new THREE.Vector3(...b);const m=mesh(rounded([width,start.distanceTo(end),depth]),wood,'frame');m.position.copy(start).add(end).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),end.sub(start).normalize());return m;}
   function tube(points,id,r=.022,mat=tubeMaterial){for(let i=1;i<points.length;i++)cylinder(points[i-1],points[i],r,mat,id);for(const p of points.slice(1,-1)){const joint=mesh(new THREE.SphereGeometry(r,12,8),mat,id);joint.position.set(...p);}}
 
   // Four uprights and three rectangular rails. Measurements are illustrative model units.
@@ -62,6 +79,7 @@ export function createModel(container, onSelect) {
     box([.105,2.39,.105],[x,1.495,z],wood,'frame');
     const wheel=mesh(new THREE.CylinderGeometry(.115,.115,.075,24),dark,'frame');wheel.rotation.x=Math.PI/2;wheel.position.set(x,.125,z);
     box([.055,.17,.1],[x,.23,z],metal,'frame');
+    for(const side of [-1,1])cylinder([x,.125,z+side*.039],[x,.125,z+side*.044],.062,metal,'frame');
   }
   for(const y of [.34,1.69,2.66]){
     for(const z of [-.78,.78])box([2.75,.115,.085],[0,y,z],wood,'frame');
@@ -79,16 +97,30 @@ export function createModel(container, onSelect) {
     const screw=mesh(new THREE.CylinderGeometry(.013,.013,.005,8),metal,'frame');screw.rotation.x=Math.PI/2;screw.position.set(x,y,z+(z>0?.045:-.045));
   }
 
-  // Eight growing channels, modeled as gently sloped cylinders with planting collars.
+  // Open cylindrical shells with planting apertures, rather than painted-on holes.
+  function channelGeometry(radius,yLeft,yRight,z){
+    const positions=[],indices=[],nx=480,nt=96;
+    for(let i=0;i<=nx;i++)for(let j=0;j<=nt;j++){
+      const x=-1.2+2.4*i/nx,a=j/nt*Math.PI*2;
+      positions.push(x,yLeft+(yRight-yLeft)*i/nx+radius*Math.cos(a),z+radius*Math.sin(a));
+    }
+    for(let i=0;i<nx;i++)for(let j=0;j<nt;j++){
+      const x=-1.2+2.4*(i+.5)/nx,a=(j+.5)/nt*Math.PI*2;
+      const hole=Math.cos(a)>0&&Array.from({length:6},(_,k)=>-.97+k*.388).some(h=>(x-h)**2+(radius*Math.sin(a))**2<.043**2);
+      if(hole)continue;
+      const n=i*(nt+1)+j;indices.push(n,n+1,n+nt+1,n+1,n+nt+2,n+nt+1);
+    }
+    const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setIndex(indices);geometry.computeVertexNormals();return geometry;
+  }
   routeDepths.forEach((z,index)=>{
     for(const lower of [false,true]){
       const yLeft=lower?.56:1.96,yRight=lower?.65:1.87,r=lower?.11:.087,id=lower?'lower':'upper';
-      const pipe=cylinder([-1.2,yLeft,z],[1.2,yRight,z],r,lower?green:white,id);pipe.userData.route=index;channelMaterials.push(pipe.material);
+      const pipe=mesh(channelGeometry(r,yLeft,yRight,z),lower?green:white,id);pipe.material.side=THREE.DoubleSide;pipe.userData.route=index;channelMaterials.push(pipe.material);
       for(const [x,y] of [[-1.22,yLeft],[1.22,yRight]]){const cap=cylinder([x-.025,y,z],[x+.025,y,z],r+.008,white,id);cap.userData.route=index;channelMaterials.push(cap.material);}
       for(let j=0;j<6;j++){
         const x=-.97+j*.388,y=yLeft+(yRight-yLeft)*((x+1.2)/2.4)+r*.94;
-        const hole=mesh(new THREE.CylinderGeometry(.043,.039,.018,24),dark,id);hole.position.set(x,y,z);hole.userData.route=index;
-        const collar=mesh(new THREE.TorusGeometry(.045,.008,8,24),dark,id);collar.rotation.x=Math.PI/2;collar.position.set(x,y+.011,z);collar.userData.route=index;
+        const cup=mesh(new THREE.CylinderGeometry(.039,.027,.07,24,1,true),dark,id);cup.position.set(x,y-.034,z);cup.userData.route=index;cup.material.side=THREE.DoubleSide;
+        const collar=mesh(new THREE.TorusGeometry(.044,.004,12,40),dark,id);collar.rotation.x=Math.PI/2;collar.position.set(x,y+.005,z);collar.userData.route=index;
       }
     }
     // Fixtures above each row, offset from the plants.
@@ -120,6 +152,7 @@ export function createModel(container, onSelect) {
   const waterMat=new THREE.MeshStandardMaterial({color:'#7fb9a2',transparent:true,opacity:.65,roughness:.15});
   box([.73,.015,.76],[-2.16,.32,0],waterMat,'reservoir');
   box([.18,.19,.19],[-2.04,.24,0],metal,'pump');
+  for(let i=0;i<6;i++)box([.003,.4,.035],[-2.57,.3,-.3+i*.12],dark,'reservoir');
 
   const flowGroup=new THREE.Group();root.add(flowGroup);flowGroup.visible=false;
   const flows=[];
@@ -146,9 +179,9 @@ export function createModel(container, onSelect) {
   }
   function setView(name){
     const ratio=container.clientWidth/container.clientHeight;
-    const scale=ratio<.9?1.42:1;
+    const scale=ratio<.9?1.3:1;
     controls.target.set(-.48,1.36,0);
-    const positions={perspective:[5.1,3.8,6.4],front:[-.5,2.5,8.6],top:[-.5,8.8,.06]};
+    const positions={perspective:[4.5,3.2,6.3],front:[-.5,2.5,8.6],top:[-.5,8.8,.06]};
     const pos=positions[name]||positions.perspective;
     camera.position.set(controls.target.x+(pos[0]-controls.target.x)*scale,controls.target.y+(pos[1]-controls.target.y)*scale,pos[2]*scale);controls.update();
   }
@@ -172,7 +205,7 @@ export function createModel(container, onSelect) {
   });
   let frame;function animate(time){if(disposed)return;frame=requestAnimationFrame(animate);if(!visible||document.hidden)return;controls.update();if(flow){flows.forEach(f=>f.dots.forEach((dot,i)=>dot.position.copy(f.curve.getPointAt(((reduced.matches?0:time*.000055)+i/f.dots.length)%1))));}renderer.render(scene,camera);}
   styleModel();frame=requestAnimationFrame(animate);
-  const dispose=()=>{disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();intersectionObserver.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of [o.material].flat())m.dispose();});woodTexture.dispose();renderer.dispose();};
+  const dispose=()=>{disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();intersectionObserver.disconnect();controls.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)for(const m of [o.material].flat())m.dispose();});woodTexture.dispose();environment.dispose();renderer.dispose();};
   if(import.meta.hot)import.meta.hot.dispose(dispose);
   return {setView,selectPart(id){selected=id;styleModel();},setFlow(enabled){flow=enabled;flowGroup.visible=flow;styleModel();},setRoute(value){route=value;styleModel();},dispose};
 }

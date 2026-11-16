@@ -3,28 +3,77 @@
   "subtitle": "A classroom hydroponics project",
   "status": "Building the water system",
   "updated": "2026-11-15",
-  "intro": "How do you turn a wooden frame, a few pipes, and a question into a living system? In science, we’re designing and building a hydroponic garden—and making sense of every choice along the way.",
-  "question": "How can we build a system that reliably grows plants in our classroom, and support our choices with scientific evidence?",
-  "now": "The frame, growing channels, and lights are in place. Our focus is the water system: splitting one pump line into four upper channels, connecting each to its own lower channel, and bringing the four returns back together.",
-  "next": "Finish the connections, test for leaks and drainage, and observe how evenly water reaches all four routes. Planting and nutrient monitoring come after the water system is working.",
-  "modelNote": "A photo-informed study of our build. Proportions, planting holes, slopes, and fitting positions are illustrative; exact measurements are still to come. The tubing shows the intended route, not a tested installation.",
+  "intro": "We’re building a classroom garden. First, we have to get the water moving.",
+  "question": "What does a plant need when we take away the soil?",
+  "now": "The frame and lights are up. We’re connecting four pairs of growing channels to one pump and reservoir.",
+  "next": "Finish the tubing. Check for leaks. Test the flow through all four routes.",
+  "modelNote": "Based on classroom photos. Dimensions and planting-hole spacing are approximate. Tubing shows the intended layout.",
   "phases": [
-    {"title": "Start with a question", "status": "Explored", "description": "Investigate food, land use, and what plants need. Identify the jobs our system must do: provide structure, light, water, nutrients, drainage, and monitoring.", "evidence": "Notice-and-wonder observations and explanations of plant needs."},
-    {"title": "Design & build", "status": "In progress", "description": "Work within limits of space, time, and materials. Assemble the structure, plan connections, and use patterns to understand how tees create branches.", "evidence": "Build sketches, fitting counts, and reasons for design choices."},
-    {"title": "Follow the water", "status": "Current focus", "description": "Connect the pump, channels, and return. Investigate gravity, height, flow, and the effect of changing one part of the system.", "evidence": "Leak checks, observations, flow measurements, and revisions."},
-    {"title": "Support living plants", "status": "Ahead", "description": "Germinate and transplant lettuce. Connect light and photosynthesis to plant growth, and investigate nutrients, pH, and water conditions.", "evidence": "Plant observations, growth records, and water measurements."},
-    {"title": "Test, improve & explain", "status": "Ahead", "description": "Use observations to diagnose problems, compare changes, and consider resource use. Explain how the whole system works using claims and evidence.", "evidence": "A design defense, reflection, and a harvest celebration when the plants are ready."}
+    {
+      "title": "What plants need",
+      "status": "Explored",
+      "description": "Explore how food grows and the jobs our system must do.",
+      "evidence": "Notice-and-wonder observations and explanations of plant needs."
+    },
+    {
+      "title": "Build the structure",
+      "status": "In progress",
+      "description": "Design within our space and budget. Assemble the frame, channels, and lights.",
+      "evidence": "Build sketches, fitting counts, and reasons for design choices."
+    },
+    {
+      "title": "Get water moving",
+      "status": "Current focus",
+      "description": "Connect the system. Test how height, slope, and fittings affect flow.",
+      "evidence": "Leak checks, observations, flow measurements, and revisions."
+    },
+    {
+      "title": "Grow something",
+      "status": "Ahead",
+      "description": "Start lettuce. Observe how light, nutrients, and water conditions affect growth.",
+      "evidence": "Plant observations, growth records, and water measurements."
+    },
+    {
+      "title": "Make it better",
+      "status": "Ahead",
+      "description": "Use the results to revise the system and explain our choices.",
+      "evidence": "A design defense, reflection, and a harvest celebration when the plants are ready."
+    }
   ],
   "assessment": [
-    {"label": "Project work & system performance", "weight": 40},
-    {"label": "Scientific reasoning", "weight": 25},
-    {"label": "Participation & collaboration", "weight": 20},
-    {"label": "Reflection & self-assessment", "weight": 15}
+    {
+      "label": "Project work & system performance",
+      "weight": 40
+    },
+    {
+      "label": "Scientific reasoning",
+      "weight": 25
+    },
+    {
+      "label": "Participation & collaboration",
+      "weight": 20
+    },
+    {
+      "label": "Reflection & self-assessment",
+      "weight": 15
+    }
   ],
   "lessons": [
-    {"title": "How much land does food take?", "description": "Connect food choices to the space needed to grow food."},
-    {"title": "The six missing pieces", "description": "Identify plant needs and the jobs a hydroponic system has to do."},
-    {"title": "Vote and get ready", "description": "Name criteria, constraints, and the first steps of a build."},
-    {"title": "How many tees do we need?", "description": "Build branching models and use a pattern to explain fitting counts."}
+    {
+      "title": "How much land does food take?",
+      "description": "Connect food choices to the space needed to grow food."
+    },
+    {
+      "title": "The six missing pieces",
+      "description": "Identify plant needs and the jobs a hydroponic system has to do."
+    },
+    {
+      "title": "Vote and get ready",
+      "description": "Name criteria, constraints, and the first steps of a build."
+    },
+    {
+      "title": "How many tees do we need?",
+      "description": "Build branching models and use a pattern to explain fitting counts."
+    }
   ]
 }

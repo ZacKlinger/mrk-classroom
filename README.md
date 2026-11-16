@@ -30,7 +30,7 @@ The source files in this repository are the public editorial source of truth. Th
 
 To publish an update, edit the relevant content, run tests and build, and push to `main`. The Pages workflow builds and deploys the exact committed source. Set repository Settings → Pages → Source to GitHub Actions when first configuring the repository.
 
-Update `project.updated` only when classroom progress is refreshed. Changes to page styling alone do not imply new classroom progress. The “Print syllabus” action uses the browser’s print dialog (including Save as PDF). The materials download includes all items regardless of current search filters.
+Update `project.updated` only when classroom progress is refreshed. Changes to page styling alone do not imply new classroom progress. The syllabus, teaching notes, and materials expand on demand. The “Print syllabus” action opens the syllabus sections for the browser’s print dialog (including Save as PDF), then restores their previous state. The materials download includes all items regardless of current search filters.
 
 ## Student privacy
 
@@ -42,7 +42,7 @@ Public curriculum is paraphrased and excludes class demographics, accommodations
 
 The teacher-confirmed topology is one reservoir/pump → three supply tees forming four branches → four upper channels → four independent lower channels → three return tees → one reservoir return. The binary tree is a schematic arrangement, not a shop drawing. Exact tube sizes, plant-hole counts, fitting locations, grades, pump performance, oxygen provision, and reservoir capacity have not been verified. The animation depicts direction, not measured flow or water depth. It does not claim that flow divides equally.
 
-The geometry is deliberately approximate, including a visible pump in an open reservoir. No plants or harvest results are presented as completed. The model uses four white upper channels, four turquoise lower channels, a braced wooden frame, casters, and lights based on the reference photos. It supports orbit, zoom, preset views, keyboard rotation/zoom, raycast component selection, and a reduced-motion flow overlay. If WebGL fails, the page retains an accessible route diagram, component guide, syllabus, and materials list.
+The geometry is deliberately approximate, including a visible pump in an open reservoir. No plants or harvest results are presented as completed. The model uses four white upper channels, four turquoise lower channels, a braced wooden frame, casters, and lights based on the reference photos. A white studio environment, rounded timber edges, procedural wood grain, open planting apertures, and physical PVC materials provide the rendering. It supports orbit, zoom, preset views, keyboard rotation/zoom, raycast component selection, and a reduced-motion flow overlay. If WebGL fails, the page retains an accessible route diagram, component guide, syllabus, and materials list.
 
 ## Source provenance
 
