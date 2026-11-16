@@ -66,3 +66,40 @@ footer{border-color:#ddd}
 
 @media(min-width:901px){.model-stage{height:620px}.exhibition-heading h1{font-size:clamp(72px,7vw,96px)}}
 .current-state{display:none}
+
+/* Teacher library */
+.project-links{display:flex;gap:24px;flex-wrap:wrap;margin-top:30px;font-size:12px}
+.project-links a{text-decoration:none;border-bottom:1px solid #aaa;padding-bottom:5px}
+.model-toolbar{justify-content:flex-end}
+.model-toolbar #lights-toggle{display:flex;align-items:center;gap:9px}
+.light-dot{width:10px;height:10px;display:inline-block;border-radius:50%;background:#e9d1db;border:1px solid #bd829b}
+#lights-toggle[aria-pressed=true]{background:#fce5ef;border-color:#e9b9cc}
+#lights-toggle[aria-pressed=true] .light-dot{background:#f39ac0;box-shadow:0 0 8px #f5a9cb}
+.library-section{padding-top:60px;padding-bottom:40px}
+.resource-controls{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px}
+.resource-filters{display:flex;flex-wrap:wrap;gap:7px}
+.resource-filters button{background:white;border:1px solid #ddd;min-height:40px;padding:8px 16px;font-size:12px;border-radius:0}
+.resource-filters button[aria-pressed=true]{background:#222;color:white;border-color:#222}
+#resource-count{font-size:11px;color:var(--muted);white-space:nowrap}
+.resource-list{display:grid;grid-template-columns:1fr 1fr;column-gap:50px}
+.resource-card{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:28px 0;border-bottom:1px solid var(--line)}
+.resource-card .eyebrow{font-size:9px;letter-spacing:1px;color:var(--muted)}
+.resource-card h3{font-size:23px;line-height:1.15;letter-spacing:-.65px;margin:12px 0}
+.resource-card h3 a{text-decoration:none}.resource-card h3 a:hover{text-decoration:underline}.resource-card h3 span{font-size:17px;font-weight:400}
+.resource-card p{font-size:13px;line-height:1.6;max-width:420px;margin:10px 0}
+.resource-card details{margin-top:15px;color:var(--muted)}.resource-card summary{font-size:11px;font-weight:400}
+.resource-download{white-space:nowrap;font-size:10px;text-decoration:none;border-bottom:1px solid #bbb;margin-top:3px;padding-bottom:3px}
+.sequence-question{font-size:18px;margin:0 0 28px;padding-left:15px;border-left:3px solid #d99bb5}
+.phase-body>.eyebrow{font-size:10px;margin-bottom:12px}
+.phase-resources{display:flex;gap:10px 22px;flex-wrap:wrap;padding:8px 0 10px}.phase-resources a{font-size:12px}
+.cost-overview{display:grid;grid-template-columns:1fr 1fr;gap:9%;padding:20px 0 10px;scroll-margin-top:35px}
+.cost-main>strong{display:block;font-size:clamp(56px,6vw,82px);letter-spacing:-4px;font-weight:500;margin:14px 0}
+.cost-main>p{font-size:14px;color:var(--muted)}
+.cost-breakdown>div{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding:15px 0;font-size:14px}
+.cost-breakdown small{display:block;font-size:11px;line-height:1.5;color:var(--muted);max-width:270px;margin-top:8px}.cost-breakdown strong{white-space:nowrap;font-weight:500}
+.cost-caption{font-size:12px;color:var(--muted);line-height:1.6;max-width:750px;margin:22px 0}
+.budget-details{padding:18px 0 25px}.budget-details summary{font-weight:500}.budget-details ul{padding-left:20px;max-width:850px;font-size:12px;line-height:1.7}.budget-details li{margin-bottom:8px}
+.budget-details>p,.budget-details>a{font-size:12px}.budget-details th{width:70%}.budget-details td:nth-child(2){width:10%}.budget-details td:last-child{white-space:nowrap}
+.budget-details th>small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:5px}
+@media(max-width:600px){.project-links{gap:16px;font-size:11px;margin-top:22px}.model-toolbar button{font-size:11px}.library-section{padding-top:36px}.resource-list{grid-template-columns:1fr}.resource-controls{align-items:flex-start;gap:8px}.resource-filters{gap:5px}.resource-filters button{padding:8px 11px;font-size:11px}.resource-card{padding:24px 0}.resource-card h3{font-size:23px}.cost-overview{grid-template-columns:1fr;gap:16px}.cost-main>strong{font-size:66px}.cost-breakdown small{max-width:235px}.sequence-question{font-size:16px}.phase>summary{grid-template-columns:24px 1fr 90px}.phase>summary h3{font-size:17px}}
+@media print{.library-section{display:none!important}.phase-resources{display:none}.sequence-question{font-size:13pt}.phase-body .eyebrow{font-size:9pt}}

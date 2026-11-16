@@ -1,0 +1,101 @@
+[
+  {
+    "id": "syllabus",
+    "title": "Project syllabus",
+    "type": "Planning",
+    "meta": "16-week outline",
+    "description": "The original project overview, assessment weights, and final design defense.",
+    "note": "Adapt the pacing and standards alignment to your course.",
+    "url": "./resources/project-syllabus.pdf",
+    "format": "PDF",
+    "source": "Hydroponics_Project_Syllabus.pdf"
+  },
+  {
+    "id": "land",
+    "title": "How much land does food take?",
+    "type": "Worksheet",
+    "meta": "Science 1.1 · 4 pages",
+    "description": "Compare diets, calculate farmland, and support a claim with numbers.",
+    "note": "Uses a class of six; change the multiplier for your group.",
+    "url": "./resources/science-1-1-food-and-land.pdf",
+    "format": "PDF",
+    "source": "Science 1.1.pdf"
+  },
+  {
+    "id": "breakfast",
+    "title": "Where did your breakfast grow?",
+    "type": "Worksheet",
+    "meta": "Science 1.2 · 90 min",
+    "description": "Use food labels, climate, and water to explain where crops grow.",
+    "note": "Includes Spanish prompts and sentence starters. Science 1.3 repeats this worksheet and is omitted.",
+    "url": "./resources/science-1-2-food-and-place.pdf",
+    "format": "PDF",
+    "source": "Science 1.2.pdf"
+  },
+  {
+    "id": "garden",
+    "title": "Garden field guide",
+    "type": "Worksheet",
+    "meta": "Science 1.4 · 40 min",
+    "description": "Observe a garden and identify what limits plant growth.",
+    "note": "Compare outdoor conditions with what the hydroponic system can control.",
+    "url": "./resources/science-1-4-garden-field-guide.pdf",
+    "format": "PDF",
+    "source": "Science 1.4.pdf"
+  },
+  {
+    "id": "needs",
+    "title": "The six missing pieces",
+    "type": "Worksheet",
+    "meta": "Science 1.5 · 90 min",
+    "description": "Match plant needs to the reservoir, pump, tubing, nutrients, drainage, and monitoring.",
+    "note": "Includes Spanish prompts and sentence starters.",
+    "url": "./resources/science-1-5-system-parts.pdf",
+    "format": "PDF",
+    "source": "Science 1.5.pdf"
+  },
+  {
+    "id": "plan",
+    "title": "Vote and get ready",
+    "type": "Worksheet",
+    "meta": "Science 1.6 · 90 min",
+    "description": "Choose a system job, define its criteria and constraints, and plan a first step.",
+    "note": "Includes Spanish prompts and sentence starters.",
+    "url": "./resources/science-1-6-plan-the-build.pdf",
+    "format": "PDF",
+    "source": "Science 1.6.pdf"
+  },
+  {
+    "id": "tees",
+    "title": "How many tees do we need?",
+    "type": "Worksheet",
+    "meta": "Science 1.7 · 90 min",
+    "description": "Build branching models and explain the relationship between outlets and tees.",
+    "note": "Earlier design: eight direct feeds and a bypass. For the current four paired routes, use three supply tees and three return tees; no bypass is shown.",
+    "url": "./resources/science-1-7-tubing-and-tees.pdf",
+    "format": "PDF",
+    "source": "Science_1_7_-_Tubing_and_tees_-_packet - Google Docs.pdf"
+  },
+  {
+    "id": "slides",
+    "title": "Plants make it. We burn it.",
+    "type": "Slideshow",
+    "meta": "Science 3.2 · Interactive HTML",
+    "description": "Photosynthesis and respiration, with video prompts, four corners, a sorting activity, and a backup quiz.",
+    "note": "Open in a browser. Arrow keys move between slides; videos and photographs need internet. The old Kahoot PIN has been removed.",
+    "url": "./resources/photosynthesis-and-respiration.html",
+    "format": "HTML",
+    "source": "Science 3.2 Slideshow (Period 1) - download, then open.html · Google Drive"
+  },
+  {
+    "id": "respiration",
+    "title": "Plants make it, we burn it — worksheet",
+    "type": "Worksheet",
+    "meta": "Science 3.2 · 90 min",
+    "description": "Trace inputs and outputs, compare the two processes, and explain why plants also respire.",
+    "note": "Companion to the slideshow. Use your own Kahoot or the deck’s backup questions.",
+    "url": "./resources/science-3-2-photosynthesis-and-respiration.pdf",
+    "format": "PDF",
+    "source": "Science 3.2 Worksheet.pdf · Google Drive"
+  }
+]

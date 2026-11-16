@@ -1,0 +1,393 @@
+{
+  "checked": "2026-11-16",
+  "currency": "USD",
+  "rows": [
+    {
+      "name": "4in SDR35 PVC Sewer Pipe (10 ft)",
+      "category": "Plumbing",
+      "quantity": 2,
+      "unitCents": 2596,
+      "totalCents": 5192,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "3in PVC Sewer Drain Pipe (10 ft)",
+      "category": "Plumbing",
+      "quantity": 2,
+      "unitCents": 2598,
+      "totalCents": 5196,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "4in PVC Sewer and Drain Cap",
+      "category": "Plumbing",
+      "quantity": 14,
+      "unitCents": 367,
+      "totalCents": 5138,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "3in PVC Sewer and Drain Cap",
+      "category": "Plumbing",
+      "quantity": 8,
+      "unitCents": 298,
+      "totalCents": 2384,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Oatey PVC Primer and Cement Kit (8 oz)",
+      "category": "Plumbing",
+      "quantity": 1,
+      "unitCents": 1168,
+      "totalCents": 1168,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "1/2in ID x 20 ft Vinyl Tubing",
+      "category": "Plumbing",
+      "quantity": 1,
+      "unitCents": 1238,
+      "totalCents": 1238,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "1/2in Barbed Shut Off Valves (8-pack)",
+      "category": "Plumbing",
+      "quantity": 1,
+      "unitCents": 999,
+      "totalCents": 999,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "1/2in Barbed Tee Fittings (20-pack)",
+      "category": "Plumbing",
+      "quantity": 1,
+      "unitCents": 1199,
+      "totalCents": 1199,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "ProLine Nylon Bulkhead Fitting (1/2-in)",
+      "category": "Plumbing",
+      "quantity": 2,
+      "unitCents": 1888,
+      "totalCents": 3776,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "2in Net Pots (50-pack)",
+      "category": "Growing supplies",
+      "quantity": 2,
+      "unitCents": 899,
+      "totalCents": 1798,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "VIVOSUN 800GPH Submersible Pump",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 2249,
+      "totalCents": 2249,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "4 ft LED Grow Lights 6 pack",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 2500,
+      "totalCents": 7499,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": "Line total retained; quantity × unit price does not match. Confirm price and pack count."
+    },
+    {
+      "name": "Digital Outlet Timer (2-pack)",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 2700,
+      "totalCents": 2700,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "pH and EC Test Meter",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 2500,
+      "totalCents": 2500,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "General Hydroponics MaxiGro",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 2239,
+      "totalCents": 2239,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Rockwool Starter Plugs (50-pack)",
+      "category": "Growing supplies",
+      "quantity": 2,
+      "unitCents": 1700,
+      "totalCents": 3400,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Teflon Thread Seal Tape",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 1000,
+      "totalCents": 1000,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Zip Ties (assorted)",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 1900,
+      "totalCents": 1900,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Rubbermaid Brute Tote Storage Container w/ Lid (20-Gallon)",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 4925,
+      "totalCents": 4925,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "General Hydroponics pH Control Kit (pH Up + Down + Test Kit)",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 2288,
+      "totalCents": 2288,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Utilitech 6-Outlet Surge Protector (3 ft)",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 1528,
+      "totalCents": 1528,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "HOME GROWN Buttercrunch Lettuce Seeds (3,950 seeds)",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 999,
+      "totalCents": 999,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Collard Greens Seed",
+      "category": "Growing supplies",
+      "quantity": 1,
+      "unitCents": 999,
+      "totalCents": 999,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "CRAFTSMAN 2-1/8in Bi-metal Non-Arbored Hole Saw",
+      "category": "Tools",
+      "quantity": 1,
+      "unitCents": 1098,
+      "totalCents": 1098,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Slip Joint Pliers",
+      "category": "Tools",
+      "quantity": 1,
+      "unitCents": 898,
+      "totalCents": 898,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Flathead Screwdriver",
+      "category": "Tools",
+      "quantity": 1,
+      "unitCents": 598,
+      "totalCents": 598,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Paper Towels",
+      "category": "Tools",
+      "quantity": 1,
+      "unitCents": 598,
+      "totalCents": 598,
+      "basis": "Listed purchase",
+      "source": "April parts tab",
+      "note": ""
+    },
+    {
+      "name": "Hole saw + arbor",
+      "category": "Later rows",
+      "quantity": 1,
+      "unitCents": 4500,
+      "totalCents": 4500,
+      "basis": "Listed purchase",
+      "source": "April parts tab, added rows",
+      "note": "Confirm whether additional or replacement for the earlier listing."
+    },
+    {
+      "name": "Additional grow lights",
+      "category": "Later rows",
+      "quantity": 1,
+      "unitCents": 6700,
+      "totalCents": 6700,
+      "basis": "Listed purchase",
+      "source": "April parts tab, added rows",
+      "note": "Confirm whether additional or replacement for the earlier listing."
+    },
+    {
+      "name": "2 × 4 × 8 ft studs",
+      "category": "Frame",
+      "quantity": 14,
+      "unitCents": 400,
+      "totalCents": 5600,
+      "basis": "Frame estimate",
+      "source": "Earlier planning sheet",
+      "note": "Historical estimate; not a reconciled receipt."
+    },
+    {
+      "name": "Exterior screws (5 lb)",
+      "category": "Frame",
+      "quantity": 1,
+      "unitCents": 3700,
+      "totalCents": 3700,
+      "basis": "Frame estimate",
+      "source": "Earlier planning sheet",
+      "note": "Historical estimate; not a reconciled receipt."
+    },
+    {
+      "name": "Locking casters",
+      "category": "Frame",
+      "quantity": 4,
+      "unitCents": 1200,
+      "totalCents": 4800,
+      "basis": "Frame estimate",
+      "source": "Earlier planning sheet",
+      "note": "Historical estimate; not a reconciled receipt."
+    },
+    {
+      "name": "3/4 in bulkhead fittings or uniseals",
+      "category": "Later allowances",
+      "quantity": 6,
+      "unitCents": 500,
+      "totalCents": 3000,
+      "basis": "Proposed addition",
+      "source": "October water budget",
+      "note": "Earlier allowance; confirm drain layout and existing fittings."
+    },
+    {
+      "name": "3/4 in return tubing (~30 ft)",
+      "category": "Later allowances",
+      "quantity": 1,
+      "unitCents": 2500,
+      "totalCents": 2500,
+      "basis": "Proposed addition",
+      "source": "October water budget",
+      "note": "Confirm diameter and length for the paired-route design."
+    },
+    {
+      "name": "Plug-in GFCI adapter",
+      "category": "Later allowances",
+      "quantity": 1,
+      "unitCents": 1800,
+      "totalCents": 1800,
+      "basis": "Proposed addition",
+      "source": "October water budget",
+      "note": "Check existing classroom ground-fault protection."
+    },
+    {
+      "name": "Extra shutoff valve",
+      "category": "Later allowances",
+      "quantity": 1,
+      "unitCents": 1000,
+      "totalCents": 1000,
+      "basis": "Proposed addition",
+      "source": "October water budget",
+      "note": "Earlier bypass design; may not be needed in the current layout."
+    },
+    {
+      "name": "Drain-screen mesh",
+      "category": "Later allowances",
+      "quantity": 1,
+      "unitCents": 600,
+      "totalCents": 600,
+      "basis": "Proposed addition",
+      "source": "October water budget",
+      "note": ""
+    },
+    {
+      "name": "pH calibration buffers",
+      "category": "Later allowances",
+      "quantity": 1,
+      "unitCents": 1200,
+      "totalCents": 1200,
+      "basis": "Proposed addition",
+      "source": "October water budget",
+      "note": ""
+    }
+  ],
+  "notes": [
+    "The live April tab marks all 29 item rows purchased. Their estimated line totals sum to $767.06; receipts have not been reconciled.",
+    "The displayed $635.08 sheet total omits $19.98 in seed rows and $112 in later rows. We sum the individual lines instead.",
+    "The six-pack light row lists a $25 unit price but a $74.99 line total. We retain $74.99 pending confirmation. The later $67 light and $45 hole-saw rows may be additions or replacements.",
+    "The $141 frame estimate comes from the earlier plan. The separate $101 allowance comes from the October water budget and includes a bypass valve that may no longer be needed.",
+    "These historical figures exclude unlisted tools, tax, shipping, electricity, water, and replenishment. Quantities and equipment specifications still need checking before another build."
+  ]
+}

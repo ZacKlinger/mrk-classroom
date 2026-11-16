@@ -10,34 +10,69 @@
   "modelNote": "Based on classroom photos. Dimensions and planting-hole spacing are approximate. Tubing shows the intended layout.",
   "phases": [
     {
-      "title": "What plants need",
-      "status": "Explored",
-      "description": "Explore how food grows and the jobs our system must do.",
-      "evidence": "Notice-and-wonder observations and explanations of plant needs."
+      "title": "Define & build",
+      "status": "Frame built",
+      "scope": "Engineering · about 3 weeks",
+      "description": "Identify plant needs and compare designs against space, cost, and maintenance constraints.",
+      "activity": "Investigate food and land use, visit a garden, assign system jobs, then sketch and build a prototype.",
+      "evidence": "A design sketch and an explanation of why the chosen system meets the constraints.",
+      "resources": [
+        "land",
+        "breakfast",
+        "garden",
+        "needs",
+        "plan"
+      ]
     },
     {
-      "title": "Build the structure",
-      "status": "In progress",
-      "description": "Design within our space and budget. Assemble the frame, channels, and lights.",
-      "evidence": "Build sketches, fitting counts, and reasons for design choices."
-    },
-    {
-      "title": "Get water moving",
+      "title": "Move the water",
       "status": "Current focus",
-      "description": "Connect the system. Test how height, slope, and fittings affect flow.",
-      "evidence": "Leak checks, observations, flow measurements, and revisions."
+      "scope": "Physics · about 3 weeks",
+      "description": "Explain how the pump, height, slope, and fittings affect water movement.",
+      "activity": "Model branching with tees. Connect the four paired routes, check for leaks, and measure flow while changing one variable.",
+      "evidence": "A labeled water-path diagram and before-and-after flow measurements.",
+      "resources": [
+        "tees"
+      ]
     },
     {
-      "title": "Grow something",
-      "status": "Ahead",
-      "description": "Start lettuce. Observe how light, nutrients, and water conditions affect growth.",
-      "evidence": "Plant observations, growth records, and water measurements."
+      "title": "Light & living plants",
+      "status": "Planting ahead",
+      "scope": "Biology · about 2 weeks",
+      "description": "Connect photosynthesis and cellular respiration to plant growth.",
+      "activity": "Use the slideshow and companion worksheet. Germinate lettuce, transplant seedlings, and compare light conditions.",
+      "evidence": "A plant observation log and an explanation of how light supports growth.",
+      "resources": [
+        "slides",
+        "respiration"
+      ]
     },
     {
-      "title": "Make it better",
-      "status": "Ahead",
-      "description": "Use the results to revise the system and explain our choices.",
-      "evidence": "A design defense, reflection, and a harvest celebration when the plants are ready."
+      "title": "Mix & measure",
+      "status": "Planned",
+      "scope": "Chemistry · about 2 weeks",
+      "description": "Explain solutions, nutrients, and pH, and connect water conditions to plant health.",
+      "activity": "Mix nutrient solution, practice measurement, and compare changes in pH or concentration under teacher guidance.",
+      "evidence": "A measurement record and a cause-and-effect explanation.",
+      "resources": []
+    },
+    {
+      "title": "Keep the system healthy",
+      "status": "Planned",
+      "scope": "Matter & systems · about 2 weeks",
+      "description": "Trace matter through the system and recognize disturbances over time.",
+      "activity": "Track growth and water use. Diagnose problems such as algae or blocked drainage and document a response.",
+      "evidence": "A claim supported by observations and data from the system.",
+      "resources": []
+    },
+    {
+      "title": "Improve & share",
+      "status": "Planned",
+      "scope": "Optimization · about 3 weeks + culmination",
+      "description": "Use evidence to improve the design and evaluate sustainability trade-offs.",
+      "activity": "Revise the system, compare hydroponics with soil growing, and prepare a demonstration, poster, or presentation. Harvest when ready.",
+      "evidence": "A design defense and reflection on what changed, why it changed, and what the evidence shows.",
+      "resources": []
     }
   ],
   "assessment": [
@@ -56,24 +91,6 @@
     {
       "label": "Reflection & self-assessment",
       "weight": 15
-    }
-  ],
-  "lessons": [
-    {
-      "title": "How much land does food take?",
-      "description": "Connect food choices to the space needed to grow food."
-    },
-    {
-      "title": "The six missing pieces",
-      "description": "Identify plant needs and the jobs a hydroponic system has to do."
-    },
-    {
-      "title": "Vote and get ready",
-      "description": "Name criteria, constraints, and the first steps of a build."
-    },
-    {
-      "title": "How many tees do we need?",
-      "description": "Build branching models and use a pattern to explain fitting counts."
     }
   ]
 }
